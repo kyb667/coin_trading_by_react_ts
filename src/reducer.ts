@@ -1,37 +1,33 @@
-import { reducerWithInitialState } from "../node_modules/typescript-fsa-reducers";
+import { reducerWithInitialState } from "typescript-fsa-reducers";
 
-import { TextInputActions } from "./reducer/TextInputActions";
+import { ShowDescriptionActions } from "./reducer/ShowDescriptionActions";
 import { UserActions } from "./reducer/UserActions";
 import { ChartActions } from "./reducer/ChartActions";
 import { StockActions } from "./reducer/StockActions";
 import { TradeActions } from "./reducer/TradeActions";
+import { WalletActions } from "./reducer/WalletActions";
+import { LanguageActions } from "./reducer/LanguageActions";
 
-import { UserInfo } from "./models/UserInfo";
-import { ChartInfo } from "./models/ChartInfo";
-// import { StockInfo } from "./models/StockInfo";
-import { TradeInfo } from "./models/TradeInfo";
+import { UserInfo, UserInfoList } from "./models/UserInfo";
+import { ChartInfo, ChartInfoList } from "./models/ChartInfo";
+import { TradeInfo, TradeInfoList } from "./models/TradeInfo";
+import { StockInfo } from "./models/StockInfo";
+import { Wallet, WalletStock, WalletStockList } from "./models/Wallet";
+import { Language } from "./models/Language";
 
-export interface State {
-  inputValue: string;
-  selectedValue: string;
-  clickCount: number;
+import { JA } from "./ja";
 
-  // user
-  userInfo: Array<UserInfo>[];
+import { DescriptionValueDict } from "./common";
 
-  // chart
-  chartInfo: Array<ChartInfo>[];
-
-  stockInfo: Array<String>[];
-
-  tradeInfo: Array<TradeInfo>[];
-}
+export type State = UserInfoList &
+  ChartInfoList &
+  TradeInfoList &
+  StockInfo &
+  Wallet &
+  WalletStockList &
+  Language;
 
 export const initialState: State = {
-  inputValue: "",
-  selectedValue: "",
-  clickCount: 0,
-
   // user
   userInfo: [],
 
@@ -42,45 +38,102 @@ export const initialState: State = {
   stockInfo: ["btc"],
 
   // trade
-  tradeInfo: []
+  tradeInfo: [],
+
+  // Wallet
+  wallet: 0,
+
+  walletStock: {},
+
+  language: JA,
+
+  descriptionValue: DescriptionValueDict.DEFAULT,
 };
 
 export const Reducer = reducerWithInitialState(initialState)
-  .case(TextInputActions.updateTextInputValue, (state, inputValue) => {
-    return { ...state, inputValue };
-  })
-  .case(TextInputActions.updateSelectedValue, (state, selectedValue) => {
-    return { ...state, selectedValue };
-  })
-  .case(TextInputActions.updateClickCount, (state) => {
-    return { ...state, clickCount: state.clickCount + 1 };
-  })
-  .case(UserActions.updateUserInfo, (state, newUserInfo) => {
-    // console.log("state : " + JSON.stringify(state));
-    // console.log("newUserInfo : " + JSON.stringify(newUserInfo));
+  .case(UserActions.updateUserInfo, (state: State, newUserInfo: UserInfo[]) => {
+    // console.debug("state : " + JSON.stringify(state));
+    // console.debug("newUserInfo : " + JSON.stringify(newUserInfo));
     return { ...state, userInfo: newUserInfo };
   })
-  .case(ChartActions.updateChartInfo, (state, newChartInfo) => {
-    // console.log("state : " + JSON.stringify(state));
-    // console.log("newChartInfo : " + JSON.stringify(newChartInfo));
-    return {
-      ...state,
-      chartInfo: [...state.chartInfo.slice(-10, 11), newChartInfo]
-    };
+  .case(
+    ChartActions.updateChartInfo,
+    (state: State, newChartInfo: ChartInfo) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("newChartInfo : " + JSON.stringify(newChartInfo));
+      return {
+        ...state,
+        chartInfo: [...state.chartInfo.slice(-10, 11), newChartInfo],
+      };
+    },
+  )
+  .case(
+    StockActions.updateStockInfo,
+    (state: State, newStockInfo: String[]) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("newStockInfo : " + JSON.stringify(newStockInfo));
+      return { ...state, stockInfo: newStockInfo };
+    },
+  )
+  .case(
+    TradeActions.updateTradeInfo,
+    (state: State, newTradeInfo: TradeInfo) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("newTradeInfo : " + JSON.stringify(newTradeInfo));
+      return {
+        ...state,
+        tradeInfo: [
+          ...state.tradeInfo.filter((val) => val.id !== newTradeInfo.id),
+          newTradeInfo,
+        ],
+      };
+    },
+  )
+  .case(
+    TradeActions.updateTradeListInfo,
+    (state: State, newTradeInfo: TradeInfo[]) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("newTradeInfo : " + JSON.stringify(newTradeInfo));
+      return {
+        ...state,
+        tradeInfo: newTradeInfo,
+      };
+    },
+  )
+  .case(WalletActions.updateWalletInfo, (state: State, value: number) => {
+    // console.debug("state : " + JSON.stringify(state));
+    // console.debug("value : " + JSON.stringify(value));
+    return { ...state, wallet: state.wallet + value };
   })
-  .case(StockActions.updateStockInfo, (state, newStockInfo) => {
-    // console.log("state : " + JSON.stringify(state));
-    // console.log("newStockInfo : " + JSON.stringify(newStockInfo));
-    return { ...state, stockInfo: newStockInfo };
+  .case(WalletActions.updateWallet, (state: State, value: number) => {
+    // console.debug("state : " + JSON.stringify(state));
+    // console.debug("value : " + JSON.stringify(value));
+    return { ...state, wallet: value };
   })
-  .case(TradeActions.updateTradeInfo, (state, newTradeInfo) => {
-    // console.log("state : " + JSON.stringify(state));
-    // console.log("newTradeInfo : " + JSON.stringify(newTradeInfo));
-    return {
-      ...state,
-      tradeInfo: [
-        ...state.tradeInfo.filter((val) => val.id !== newTradeInfo.id),
-        newTradeInfo
-      ]
-    };
-  });
+  .case(
+    WalletActions.updateWalletStockInfo,
+    (state: State, walletStock: WalletStock) => {
+      // console.debug("state : " + JSON.stringify(state.walletStock));
+      // console.debug("walletStock : " + JSON.stringify(walletStock));
+      return {
+        ...state,
+        walletStock: walletStock,
+      };
+    },
+  )
+  .case(
+    LanguageActions.updateLanguage,
+    (state: State, newLanguage: Language) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("newLanguage : " + JSON.stringify(newLanguage));
+      return { ...state, language: newLanguage };
+    },
+  )
+  .case(
+    ShowDescriptionActions.updateDescriptionValue,
+    (state: State, value: string) => {
+      // console.debug("state : " + JSON.stringify(state));
+      // console.debug("value : " + JSON.stringify(value));
+      return { ...state, descriptionValue: value };
+    },
+  );

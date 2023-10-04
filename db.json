@@ -1,4 +1,137 @@
 {
-  "user": [],
-  "stock": []
+  "user": [
+    {
+      "userId": "1",
+      "password": "11",
+      "username": "111",
+      "id": 1
+    },
+    {
+      "userId": "2",
+      "password": "22",
+      "username": "222",
+      "id": 2
+    },
+    {
+      "userId": "2",
+      "password": "22",
+      "username": "222",
+      "id": 3
+    }
+  ],
+  "stock": [
+    {
+      "userId": "1",
+      "stock": [
+        "btc",
+        "etc"
+      ],
+      "id": 1
+    },
+    {
+      "userId": "2",
+      "stock": [
+        "btc",
+        "etc",
+        "eth",
+        "xrp",
+        "sol"
+      ],
+      "id": 2
+    }
+  ],
+  "wallet": [
+    {
+      "userId": "1",
+      "wallet": 12,
+      "id": 1
+    },
+    {
+      "userId": "2",
+      "wallet": 0,
+      "id": 2
+    }
+  ],
+  "trade": [
+    {
+      "id": "60801111",
+      "createdAt": "2023/10/12 17:26",
+      "updatedAt": "2023/10/12 17:26",
+      "tradeStock": "btc",
+      "tradeType": "1",
+      "tradeMoney": 8,
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "242494591",
+      "createdAt": "2023/10/12 17:26",
+      "updatedAt": "2023/10/12 17:28",
+      "tradeStock": "etc",
+      "tradeType": "1",
+      "tradeMoney": 8,
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "76349998",
+      "createdAt": "2023/10/12 17:27",
+      "updatedAt": "2023/10/12 17:28",
+      "tradeStock": "btc",
+      "tradeType": "2",
+      "tradeMoney": "10",
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "434272987",
+      "createdAt": "2023/10/12 17:29",
+      "updatedAt": "2023/10/12 17:30",
+      "tradeStock": "etc",
+      "tradeType": "2",
+      "tradeMoney": "10",
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "392126121",
+      "createdAt": "2023/10/12 17:29",
+      "updatedAt": "2023/10/12 17:29",
+      "tradeStock": "btc",
+      "tradeType": "1",
+      "tradeMoney": "1",
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "540181865",
+      "createdAt": "2023/10/12 17:29",
+      "updatedAt": "2023/10/12 17:31",
+      "tradeStock": "etc",
+      "tradeType": "1",
+      "tradeMoney": "1",
+      "state": "1",
+      "userId": "1"
+    },
+    {
+      "id": "213279800",
+      "createdAt": "2023/10/12 17:29",
+      "updatedAt": "2023/10/12 17:29",
+      "tradeStock": "btc",
+      "tradeType": "2",
+      "tradeMoney": "9",
+      "state": "0",
+      "userId": "1"
+    },
+    {
+      "id": "667711420",
+      "createdAt": "2023/10/12 17:35",
+      "updatedAt": "2023/10/12 17:35",
+      "tradeStock": "etc",
+      "tradeType": "2",
+      "tradeMoney": "10",
+      "state": "1",
+      "userId": "1"
+    }
+  ]
 }

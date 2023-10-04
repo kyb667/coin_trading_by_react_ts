@@ -1,48 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import VirtualList from "rc-virtual-list";
+import { Avatar, Divider, List, Skeleton } from "antd";
 import { Timeline } from "antd";
-import { TradeInfo } from "../../models/TradeInfo";
+import { TradeInfo, TradeInfoList } from "../../models/TradeInfo";
+import { Language } from "../../models/Language";
+import { CheckOutlined } from "@ant-design/icons";
+
+import { TradeType, TradeState } from "../../common";
 
 type Props = {
-  tradeInfo: Array<TradeInfo>[];
-};
+  language: Language;
+} & TradeInfoList;
 
 export const TradeTimeline: React.FC<Props> = (props) => {
-  const makeItem = (data: TradeInfo[]) => {
-    let color, tradeTypeStr;
+  // console.debug("TradeTimeline");
+
+  let dataList: any[] = [];
+
+  props.tradeInfo.forEach((data) => {
+    let state, tradeTypeStr;
     switch (data.tradeType) {
-      case "1":
-        color = "blue";
-        tradeTypeStr = "買い";
+      case TradeType.BUY:
+        tradeTypeStr = `${props.language.common.TradeType.BUY}`;
         break;
-      case "2":
-        color = "red";
-        tradeTypeStr = "売り";
+      case TradeType.SELL:
+        tradeTypeStr = `${props.language.common.TradeType.SELL}`;
         break;
-      case "3":
-        color = "gray";
-        tradeTypeStr = "予約";
+      case TradeType.RESERVATION:
+        tradeTypeStr = `${props.language.common.TradeType.RESERVATION}`;
         break;
     }
 
-    if (data.state === "1") {
-      color = "green";
+    switch (data.state) {
+      case TradeState.WAIT:
+        state = false;
+        break;
+
+      case TradeState.SUCCESS:
+        state = true;
+        break;
     }
 
-    const children = `${data.tradeStock} : ${data.message}（${tradeTypeStr}）`;
+    let returnData = null;
 
-    let returnData = {
-      color: color,
-      children: children
+    const title = `${data.tradeStock} : ${data.createdAt}（${tradeTypeStr}）`;
+    returnData = {
+      title: title,
+      state: state,
+      key: data.id,
     };
-
-    return returnData;
-  };
+    dataList.push(returnData);
+  });
 
   return (
     <>
-      <div>タイムライン</div>
+      <div>{props.language.component.TradeTimeline.title.label}</div>
       <br />
-      <Timeline items={props.tradeInfo.map((val) => makeItem(val))} />
+      <List>
+        <VirtualList data={dataList} height={300} itemHeight={30} itemKey="key">
+          {(item: any) => (
+            <List.Item key={item.key}>
+              <List.Item.Meta title={<a>{item.title}</a>} />
+              <>{item.state ? <CheckOutlined /> : null}</>
+            </List.Item>
+          )}
+        </VirtualList>
+      </List>
     </>
   );
 };

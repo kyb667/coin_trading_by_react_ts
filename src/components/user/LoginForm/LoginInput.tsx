@@ -10,7 +10,6 @@ type Props = {
 };
 
 export const LoginInput: React.FC<Props> = (props) => {
-  console.log(props);
   return (
     <Form.Item label={props.label} name={props.name} rules={props.rules}>
       {props.children}

@@ -1,7 +1,5 @@
 type StockInfo = {
-  stockInfo: Array<String>[];
+  stockInfo: Array<String>;
 };
 
-const DefaultStock = ["btc", "etc", "eth", "xrp", "sol"];
-
-export { StockInfo, DefaultStock };
+export { StockInfo };

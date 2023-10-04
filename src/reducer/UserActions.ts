@@ -9,5 +9,5 @@ const actionCreator = actionCreatorFactory();
 // };
 
 export const UserActions = {
-  updateUserInfo: actionCreator<Array<UserInfo>[]>("ACTION_UPDATE_USER_INFO"),
+  updateUserInfo: actionCreator<UserInfo[]>("ACTION_UPDATE_USER_INFO"),
 };

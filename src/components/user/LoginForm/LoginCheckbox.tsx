@@ -9,7 +9,6 @@ type Props = {
 };
 
 export const LoginCheckbox: React.FC<Props> = (props) => {
-  console.log(props);
   return (
     <Form.Item
       // name={props.name}

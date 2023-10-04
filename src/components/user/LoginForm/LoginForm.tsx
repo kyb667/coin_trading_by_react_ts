@@ -1,31 +1,33 @@
 import React, { ReactNode } from "react";
 import { Form } from "antd";
 
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+import { UserInfo } from "../../../models/UserInfo";
+import { Language } from "../../../models/Language";
+import { Login } from "../../../axios/DB";
+
+import { StateCode } from "../../../common";
 
 type Props = {
   children: ReactNode;
   onClickFunc: Function;
-};
-
-type UserInfo = {
-  username: string;
-  password: string;
-};
+} & Language;
 
 export const LoginForm: React.FC<Props> = (props) => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = async (values: any) => {
+    let user: UserInfo = {
+      userId: values.userId,
+      userName: "",
+      password: values.password,
+      id: 0,
+    };
 
-    let arrays: Array<UserInfo>[] = [];
+    const [data, code] = await Login(user);
 
-    arrays.push(values);
-
-    console.log(arrays);
-
-    props.onClickFunc(arrays);
+    if (code === StateCode.ERROR) {
+      alert(`${props.language.component.UserForm.alert}`);
+    } else {
+      props.onClickFunc(data);
+    }
   };
 
   return (
@@ -36,7 +38,6 @@ export const LoginForm: React.FC<Props> = (props) => {
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       {props.children}

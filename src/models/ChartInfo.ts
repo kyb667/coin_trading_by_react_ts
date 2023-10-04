@@ -1,12 +1,7 @@
-type ChartInfo = {
-  name: string;
-  btc: number;
-  etc: number;
-  eth: number;
-  xrp: number;
-  sol: number;
-};
+type ChartInfo = Record<string, string>;
 
-let ChartInfoList: Array<ChartInfo>[];
+interface ChartInfoList {
+  chartInfo: Array<ChartInfo>;
+}
 
 export { ChartInfo, ChartInfoList };

@@ -1,8 +1,12 @@
 type UserInfo = {
-  username: string;
+  userId: string;
+  userName: string;
   password: string;
+  id: number;
 };
 
-let UserInfoList: Array<UserInfo>[];
+interface UserInfoList {
+  userInfo: UserInfo[];
+}
 
 export { UserInfo, UserInfoList };
