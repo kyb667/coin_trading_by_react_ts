@@ -29,7 +29,7 @@ export const IntranetMain: React.FC<Props> = (props) => {
     <Layout hasSider>
       <Layout className="site-layout">
         <HeaderMain colorBgContainer={colorBgContainer}>
-          <HeaderImage />
+          {/* <HeaderImage /> */}
           <HeaderButton
             updateLanguage={props.updateLanguage}
             updateUserInfo={props.updateUserInfo}
