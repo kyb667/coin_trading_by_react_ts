@@ -1,3 +1,6 @@
+### URL
+https://web-coin-trading-jvpb2mlofj9clw.sel5.cloudtype.app/
+
 ### PG名
 ---
 仮想通貨取引サイト
@@ -23,6 +26,7 @@ json-serverを利用しています。
 <br/>
 <br/>
 - ユーザーテーブル(user)
+
 | カラム名 | タイプ | 説明 |
 | :--- | :---: | :--- |
 |   id      |   number  |   json-serverのpk |
@@ -35,28 +39,29 @@ json-serverを利用しています。
 
 | カラム名 | タイプ | 説明 |
 | :--- | :---: | :--- |
-|   id      |   number  |   json-serverのpk
-|   userId  |   string  |   userid
-|   stock   |   string[]|   有効株式リスト
+|   id      |   number  |   json-serverのpk |
+|   userId  |   string  |   userid |
+|   stock   |   string[]|   有効株式リスト |
 
 <br/>
 
 - ウォレットテーブル(wallet)
 | カラム名 | タイプ | 説明 |
 | :--- | :---: | :--- |
-|   id      |   number  |   json-serverのpk
-|   userId  |   string  |   userid
-|   wallet   |   number|   ユーザーのチャージ金額
+|   id      |   number  |   json-serverのpk |
+|   userId  |   string  |   userid |
+|   wallet   |   number|   ユーザーのチャージ金額 |
 
 <br/>
 
 - 注文履歴テーブル(trade)
+
 | カラム名 | タイプ | 説明 |
 | :--- | :---: | :--- |
-|   id     |   string  |   注文Id
-|   userId      |   string  |   userid
-|   state       |   string  |   注文ステータス（0 : 待機 、1: 成功、2: cancel）
-|   tradeStock  |   string  |   株式名
-|   tradeType   |   string  |   取引タイプ（1 : 買い、2 : 売り、3：予約）
-|   tradeMoney  |   string  |   注文単価
-|   message     |   string  |   備考
+|   id     |   string  |   注文Id |
+|   userId      |   string  |   userid |
+|   state       |   string  |   注文ステータス（0 : 待機 、1: 成功、2: cancel） |
+|   tradeStock  |   string  |   株式名 |
+|   tradeType   |   string  |   取引タイプ（1 : 買い、2 : 売り、3：予約） |
+|   tradeMoney  |   string  |   注文単価 |
+|   message     |   string  |   備考 |
