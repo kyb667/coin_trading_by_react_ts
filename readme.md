@@ -46,6 +46,7 @@ json-serverを利用しています。
 <br/>
 
 - ウォレットテーブル(wallet)
+
 | カラム名 | タイプ | 説明 |
 | :--- | :---: | :--- |
 |   id      |   number  |   json-serverのpk |
